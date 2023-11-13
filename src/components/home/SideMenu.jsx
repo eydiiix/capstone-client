@@ -33,12 +33,6 @@ function SideMenu({ showMenu, toggleMenu, currentPath }) {
         { name: "home", path: "", icon: <HomeIcon /> },
         { name: "profile", path: "profile", icon: <ProfileIcon /> },
         { name: "search", path: "search", icon: <SearchIcon /> },
-        { name: "messages", path: "messages", icon: <MessagesIcon /> },
-        {
-            name: "notifications",
-            path: "notifications",
-            icon: <NotificationIcon />,
-        },
         { name: "settings", path: "settings", icon: <SettingsIcon /> },
     ];
 

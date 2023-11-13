@@ -15,9 +15,7 @@ export const writeUserData = async (uid, user) => {
             gender: user.gender,
             age: age,
             birthday: birthday,
-            isVolunteer: user.isVolunteer,
             email: user.email,
-            interest: user.interests,
         };
 
         await setDoc(doc(userCollection, uid), userData);
@@ -55,10 +53,7 @@ export const updateUserData = async (uid, user) => {
             gender: user.gender,
             age: user.age,
             birthday: user.birthday,
-            isVolunteer: user.isVolunteer,
             email: user.email,
-            bio: user?.bio,
-            interest: user.interest,
         };
 
         await updateDoc(doc(userCollection, uid), userData);

@@ -41,15 +41,12 @@ function PersonalInforamtion() {
         lastname: currentUserData.lastname,
         gender: currentUserData.gender,
         birthday: currentUserData.birthday,
-        isVolunteer: currentUserData.isVolunteer,
         age: currentUserData.age,
-        interest: currentUserData?.interests,
-        bio: currentUserData?.bio,
     };
     
     const [imageUpload, setImageUpload] = useState(null);
     const [userDataField, setUserDataField] = useState(userData);
-    const { email, firstname, lastname, gender, bio, birthday, isVolunteer } = userDataField;
+    const { email, firstname, lastname, gender, birthday } = userDataField;
 
     const handleDeleteImg = async () => {
         setImgDeleting(true);
@@ -314,43 +311,6 @@ function PersonalInforamtion() {
                             className={`h-10 w-full rounded-md capitalize px-3 text-sm focus:outline-0 border border-slate-300 focus:border-primary focus:ring-1 disabled:text-slate-400 `}
                         />
                     </div>
-                    <div className="flex flex-col w-full mt-7">
-                        <label
-                            htmlFor="bio"
-                            className="font-semibold text-sm py-2"
-                        >
-                            Bio
-                        </label>
-                        <input
-                            type="text"
-                            id="bio"
-                            name="bio"
-                            value={bio}
-                            disabled={edit}
-                            onChange={handleChange}
-                            className={`h-10 w-full rounded-md capitalize px-3 text-sm focus:outline-0 border border-slate-300 focus:border-primary focus:ring-1 disabled:text-slate-400 `}
-                        />
-                    </div>
-                    <div className="flex flex-col w-full mt-7">
-                        <label
-                            htmlFor="isVolunteer"
-                            className="font-semibold text-sm py-2"
-                        >
-                            Are you volunteer?
-                        </label>
-                        <select
-                            className={`w-full h-10 bg-transparent  rounded-md px-3 focus:outline-0 border border-slate-300 focus:border-primary disabled:text-slate-500 cursor-text disabled:cursor-default focus:ring-1 disabled:border-slate-400 disabled:bg-slate-50`}
-                            name="isVolunteer"
-                            id="isVolunteer"
-                            defaultValue={isVolunteer}
-                            disabled={edit}
-                            onChange={handleChange}
-                        >
-                            <option value={true}>Yes</option>
-                            <option value={false}>No</option>
-                        </select>
-                    </div>
-
                     <div className="flex gap-3 my-10">
                         {edit ? (
                             <button

@@ -4,7 +4,6 @@ import { writeUserData } from "@/utils/firestore";
 import FormOne from "@/components/signup/FormOne";
 import FormTwo from "@/components/signup/FormTwo";
 import FormThree from "@/components/signup/FormThree";
-import FormFour from "@/components/signup/FormFour";
 import SignUpLoader from "@/components/loader/SignUpLoader";
 import Stepper from "@/components/signup/Stepper";
 import { signUpUser } from "@/utils/auth";
@@ -40,7 +39,6 @@ function SignUp() {
     const [lastnameError, setLastnameError] = useState("");
     const [genderError, setGenderError] = useState("");
     const [birthdayError, setBirthdayError] = useState("");
-    const [interestError, setInterestError] = useState("");
     const [emailError, setEmailError] = useState(null);
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -54,7 +52,6 @@ function SignUp() {
         lastname: "",
         gender: "",
         birthday: "",
-        interests: [],
         email: "",
         createPassword: "",
         confirmPassword: "",
@@ -67,7 +64,6 @@ function SignUp() {
         lastname,
         gender,
         birthday,
-        interests,
         email,
         createPassword,
         confirmPassword,
@@ -84,15 +80,6 @@ function SignUp() {
         });
     };
 
-    const handleChangeInterest = (interests) => {
-        setFormData((prevFormData) => {
-            return {
-                ...prevFormData,
-                interests: interests,
-            };
-        });
-    };
-
     const handleDateChange = async (newValue) => {
         setFormData((prevFormData) => {
             return {
@@ -100,30 +87,6 @@ function SignUp() {
                 birthday: newValue,
             };
         });
-    };
-
-    const resetInterest = () => {
-        setFormData((prevFormData) => {
-            return {
-                ...prevFormData,
-                interests: [],
-            };
-        });
-    };
-
-    const handleOptionClick = (option) => {
-        const updatedInterest = [...interests];
-
-        if (updatedInterest.includes(option)) {
-            const index = updatedInterest.indexOf(option);
-            if (index !== -1) {
-                updatedInterest.splice(index, 1);
-                handleChangeInterest(updatedInterest);
-            }
-        } else {
-            handleChangeInterest([...updatedInterest, option]);
-        }
-        handleFocus(setInterestError);
     };
 
     const resetSignUpPage = () => {
@@ -189,15 +152,7 @@ function SignUp() {
                     setStepper(3);
                 }
             }
-        } else if (next && step === 3) {
-            if (interests.length < 3) {
-                setInterestError("Please select at least 3 interest.");
-            }
-            if (interests.length >= 3) {
-                setStep(num);
-                setStepper(4);
-            }
-        } else if (!next && step === 4) {
+        } else if (!next && step === 3) {
             setStep(num);
         } else {
             setStep(num);
@@ -217,9 +172,6 @@ function SignUp() {
                 if (registerUserData) {
                     resetSignUpPage();
                 }
-                // else {
-                //     deleteUser(userCredential.user)
-                // }
             }
         } catch (error) {
             const { passwordError, confirmError } = await handlePasswordError(
@@ -268,13 +220,10 @@ function SignUp() {
                     <FormTwo
                         gender={gender}
                         birthday={birthday}
-                        interests={interests}
                         genderError={genderError}
                         birthdayError={birthdayError}
-                        interestError={interestError}
                         setBirthdayError={() => handleFocus(setBirthdayError)}
                         setGenderError={() => handleFocus(setGenderError)}
-                        setInterestError={() => handleFocus(setInterestError)}
                         handleChange={handleChange}
                         handleDateChange={handleDateChange}
                         back={() => goToStep(1, false)}
@@ -283,19 +232,6 @@ function SignUp() {
                 )}
                 {step === 3 && (
                     <FormThree
-                        interests={interests}
-                        interestError={interestError}
-                        setInterestError={() => handleFocus(setInterestError)}
-                        handleChange={handleChangeInterest}
-                        options={interestList}
-                        handleOptionClick={handleOptionClick}
-                        reset={resetInterest}
-                        back={() => goToStep(2, false)}
-                        next={() => goToStep(4, true)}
-                    />
-                )}
-                {step === 4 && (
-                    <FormFour
                         email={email}
                         createPassword={createPassword}
                         confirmPassword={confirmPassword}
@@ -308,7 +244,7 @@ function SignUp() {
                         setConfirmPasswordError={() =>
                             handleFocus(setConfirmPasswordError)
                         }
-                        back={() => goToStep(3, false)}
+                        back={() => goToStep(2, false)}
                     />
                 )}
             </form>

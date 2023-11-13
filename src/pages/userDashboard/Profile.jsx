@@ -19,7 +19,6 @@ function Profile() {
         bio,
         birthday,
         isVolunteer,
-        interest,
     } = currentUserData;
 
     const copyId = () => {
@@ -121,50 +120,6 @@ function Profile() {
                         value={age}
                         disabled
                         className={`h-10 w-full rounded-md capitalize px-3 text-sm focus:outline-0 border border-slate-300 focus:border-primary focus:ring-1 disabled:text-slate-400 `}
-                    />
-                </div>
-                <div className="flex flex-col w-full mt-7">
-                    <label htmlFor="bio" className="font-semibold text-sm py-2">
-                        Bio
-                    </label>
-                    <input
-                        type="text"
-                        id="bio"
-                        name="bio"
-                        value={bio?.length != 0 ? bio : "N/A"}
-                        disabled
-                        className={`h-10 w-full rounded-md capitalize px-3 text-sm focus:outline-0 border border-slate-300 focus:border-primary focus:ring-1 disabled:text-slate-400 `}
-                    />
-                </div>
-                <div className="flex flex-col w-full mt-7">
-                    <label
-                        htmlFor="interest"
-                        className="font-semibold text-sm py-2"
-                    >
-                        Interest
-                    </label>
-                    <input
-                        type="text"
-                        id="interest"
-                        name="interest"
-                        value={interest}
-                        disabled
-                        className={`h-10 w-full rounded-md capitalize px-3 text-sm focus:outline-0 border border-slate-300 focus:border-primary focus:ring-1 disabled:text-slate-400 `}
-                    />
-                </div>
-                <div className="flex flex-col w-full mt-7">
-                    <label
-                        htmlFor="isVolunteer"
-                        className="font-semibold text-sm py-2"
-                    >
-                        Are you volunteer?
-                    </label>
-                    <input
-                        className={`w-full h-10 bg-transparent  rounded-md px-3 focus:outline-0 border border-slate-300 focus:border-primary disabled:text-slate-500 cursor-text disabled:cursor-default focus:ring-1 disabled:border-slate-400 disabled:bg-slate-50`}
-                        name="isVolunteer"
-                        id="isVolunteer"
-                        value={isVolunteer ? "Yes" : "No    "}
-                        disabled
                     />
                 </div>
             </div>

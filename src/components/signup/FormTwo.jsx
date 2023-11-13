@@ -15,7 +15,6 @@ function FormTwo(props) {
     const {
         gender,
         birthday,
-        isVolunteer,
         genderError,
         birthdayError,
         setBirthdayError,
@@ -76,24 +75,7 @@ function FormTwo(props) {
                 />
             </div>
             <InputErrorMessage message={birthdayError} />
-            <label
-                htmlFor="isVolunteer"
-                className="w-full py-1 text-sm text-slate-800 mt-3"
-            >
-                Do you want to volunteer?
-            </label>
-            <select
-                className={`w-full h-10 bg-transparent rounded-md px-3 focus:outline-0 border border-slate-300 focus:border-primary disabled:text-slate-400 focus:ring-1`}
-                name="isVolunteer"
-                id="isVolunteer"
-                value={isVolunteer}
-                defaultValue={false}
-                placeholder=""
-                onChange={handleChange}
-            >
-                <option value={true}>Yes</option>
-                <option value={false}>No</option>
-            </select>
+            
             <div className="flex flex-col-reverse w-full ">
                 <button
                     className="h-10  w-full mt-3  border border-slate-400 rounded-md text-slate-400 font-semibold"
