@@ -5,10 +5,6 @@ function Video({
     stream,
     muted,
     detection,
-    setHappyProbability,
-    setSadProbability,
-    setNeutralProbability,
-    setAngryProbability,
     setEmotionData,
     time,
     setGraphLoaded,
@@ -16,6 +12,7 @@ function Video({
     const videoRef = useRef();
     const canvasRef = useRef();
     const timeRef = useRef(0);
+    const previousTime = useRef(0);
 
     useEffect(() => {
         if (timeRef) {
@@ -48,25 +45,29 @@ function Video({
     };
 
     const updateEmotionData = (newEmotionData) => {
-        setEmotionData((prev) => ({
-            ...prev,
-            happy: [
-                ...prev.happy,
-                { y: newEmotionData.happy, label: timeRef.current },
-            ],
-            sad: [
-                ...prev.sad,
-                { y: newEmotionData.sad, label: timeRef.current },
-            ],
-            neutral: [
-                ...prev.neutral,
-                { y: newEmotionData.neutral, label: timeRef.current },
-            ],
-            angry: [
-                ...prev.angry,
-                { y: newEmotionData.angry, label: timeRef.current },
-            ],
-        }));
+        if (previousTime.current !== timeRef.current) {
+            setEmotionData((prev) => ({
+                ...prev,
+                happy: [
+                    ...prev.happy,
+                    { y: newEmotionData.happy, label: timeRef.current },
+                ],
+                sad: [
+                    ...prev.sad,
+                    { y: newEmotionData.sad, label: timeRef.current },
+                ],
+                neutral: [
+                    ...prev.neutral,
+                    { y: newEmotionData.neutral, label: timeRef.current },
+                ],
+                angry: [
+                    ...prev.angry,
+                    { y: newEmotionData.angry, label: timeRef.current },
+                ],
+            }));
+
+            previousTime.current = timeRef.current;
+        }
     };
 
     const faceMyDetect = async () => {
@@ -82,11 +83,6 @@ function Video({
 
                 if (detections.length > 0) {
                     const expressions = detections[0].expressions;
-
-                    setHappyProbability(expressions.happy);
-                    setSadProbability(expressions.sad);
-                    setNeutralProbability(expressions.neutral);
-                    setAngryProbability(expressions.angry);
 
                     const newEmotionData = {
                         happy: parseInt(expressions.happy * 100, 10),
@@ -104,20 +100,6 @@ function Video({
                         angry: 0,
                     });
                 }
-
-                const canvas = faceapi.createCanvasFromMedia(videoRef.current);
-                canvasRef.current.innerHTML = "";
-                canvasRef.current.appendChild(canvas);
-
-                faceapi.matchDimensions(canvas, videoRef.current);
-
-                const resizedDetections = faceapi.resizeResults(detections, {
-                    width: videoRef.current.width,
-                    height: videoRef.current.height,
-                });
-
-                faceapi.draw.drawDetections(canvas, resizedDetections);
-                faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
             }
         }, 1000);
     };
@@ -129,8 +111,7 @@ function Video({
                 className="bg-black lg:w-auto w-full rounded-sm scale-x-[-1] lg:rounded-none my-auto lg:mx-auto h-auto lg:h-full object-contain"
                 ref={videoRef}
                 autoPlay
-                width="940"
-                height="1000"
+                playsInline
                 muted={muted}
             ></video>
             <div ref={canvasRef} className="absolute hidden top-[-50px]" />

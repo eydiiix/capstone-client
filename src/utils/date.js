@@ -22,3 +22,10 @@ export function calculateCurrentDateMinus60Years() {
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
 }
+
+const currentDate = new Date();
+export const formattedDate = currentDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+});

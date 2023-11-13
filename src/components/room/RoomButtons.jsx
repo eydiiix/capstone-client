@@ -46,7 +46,7 @@ function RoomButtons({
     return (
         <div className="bg-transparent lg:px-20 px-5 lg:static absolute bottom-4 right-0  justify-center items-center gap-3 flex w-full lg:h-24 h-14">
             <div className="flex gap-4  rounded-l-full rounded-r-full bg-black/50 items-center p-2 justify-center">
-                <div className="w-fit lg:flex hidden absolute bottom-100 lg:static items-center text-sm justify-center h-8 bg-black/50 lg:p-4 rounded-l-full rounded-r-full text-white overflow-hidden">
+                <div className="w-fit lg:flex md:static md:flex hidden absolute bottom-100 lg:static items-center text-sm justify-center h-8 bg-black/50 lg:p-4 rounded-l-full rounded-r-full text-white overflow-hidden">
                     <h1 className="lg:w-32 w-20 text-center">
                         <FontAwesomeIcon className="pr-2 w-4" icon={faClock} />
                         {`${hours === 0 ? "" : hours + ":"}${
@@ -93,6 +93,7 @@ function RoomButtons({
                     />
                 </button>
                 <button
+                id="hangUp"
                     className="bg-red-600 h-8 w-12 flex items-center justify-center rounded-l-full rounded-r-full text-white"
                     onClick={handleEndCall}
                 >

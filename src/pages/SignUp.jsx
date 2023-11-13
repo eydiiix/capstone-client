@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { generateUniqueId } from "@/utils/uid";
 import { writeUserData } from "@/utils/firestore";
@@ -16,6 +15,22 @@ import {
 } from "@/utils/validation";
 import { delay } from "@/utils/delay";
 
+
+export const interestList = [
+    "Family",
+    "School",
+    "Lovelife",
+    "Kpop",
+    "Anime",
+    "Pets",
+    "Sports",
+    "Music",
+    "Books",
+    "Travel",
+    "Foods",
+    "Drama",
+];
+
 function SignUp() {
     const [step, setStep] = useState(1);
 
@@ -31,20 +46,7 @@ function SignUp() {
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [stepper, setStepper] = useState(1);
 
-    const interestList = [
-        "Family",
-        "School",
-        "Lovelife",
-        "Kpop",
-        "Anime",
-        "Pets",
-        "Sports",
-        "Music",
-        "Books",
-        "Travel",
-        "Foods",
-        "Drama",
-    ];
+    
 
     const userData = {
         userId: generateUniqueId(),
@@ -70,7 +72,7 @@ function SignUp() {
         createPassword,
         confirmPassword,
     } = formData;
- 
+
     const handleChange = (event) => {
         const { name, value } = event.target;
 
@@ -267,7 +269,6 @@ function SignUp() {
                         gender={gender}
                         birthday={birthday}
                         interests={interests}
-                       
                         genderError={genderError}
                         birthdayError={birthdayError}
                         interestError={interestError}
