@@ -51,9 +51,7 @@ function Home() {
             setHideChart(true);
             setMuteMic(false);
             setMuteSound(false);
-            setEmotionData(emptyEmotionData);
             setRemoteStreams(null);
-            setOtherName("");
             setMatching(true);
             if (isTimeRunning) resetTimer();
         }
@@ -204,16 +202,17 @@ function Home() {
     const endCall = async () => {
         if (activeCall) {
             activeCall.close();
-            setRemoteStreams({});
             setActiveCall(null);
         }
         ws.emit("end-call", meId);
         offCam();
+        setRemoteStreams({});
         setRoomContainer(false);
         setMatching(false);
         resetTimer();
-        const report = await computeEmotionAverages(emotionData);
-        setEmotionResult({ ...report, participant: fullname });
+        console.log(emotionData);
+        let report = await computeEmotionAverages(emotionData);
+        setEmotionResult(report);
         setCallEnded(true);
         console.log(JSON.stringify(report, null, 2));
     };
@@ -223,12 +222,15 @@ function Home() {
         ws.emit("stop-match", meId);
         setRoomContainer(false);
     };
+
     const sendSignaltoServer = (interest) => {
         StartMedia();
         ws.emit("start-match", { peerId: meId, interest: interest });
         setChoosingInterest(false);
         setRoomContainer(true);
-        setEmotionResult({});
+        setEmotionResult();
+        setOtherName("");
+        setEmotionData(emptyEmotionData);
     };
 
     const handleChooseInterest = () => {
@@ -269,7 +271,17 @@ function Home() {
                             />
                         )}
                     </div>
-                    <MiniEmotionChart emotions={emotionData} hide={hideChart} />
+                    <MiniEmotionChart emotions={emotionData} hide={hideChart}>
+                    {remoteStreams?.active === true && (
+                        <Video
+                            stream={remoteStreams}
+                            muted={muteSound}
+                            detection={false}
+                            setEmotionData={setEmotionData}
+                            time={time}
+                            setGraphLoaded={setGraphLoaded}
+                        />)}
+                    </MiniEmotionChart>
                     <MyVideoStream
                         hideOwnCam={hideOwnCam}
                         hideChart={hideChart}

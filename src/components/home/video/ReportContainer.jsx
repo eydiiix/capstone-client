@@ -104,7 +104,7 @@ function ReportContainer({ emotionResult, home, participant, date}) {
         data: [
             {
                 type: "doughnut",
-                indexLabel: "{time} ",
+                indexLabel: "{name}{time} ",
                 dataPoints: [
                     {
                         name: "Face Detected",
@@ -174,7 +174,7 @@ function ReportContainer({ emotionResult, home, participant, date}) {
                     </div>
                     <div className="lg:w-2/4 w-full rounded-md p-6 bg-slate-900 h-full">
                         <h1 className="text-lg w-full underline underline-offset-2  font-semibold pb-4">
-                            Call Time
+                            Face Detection Time
                         </h1>
 
                         <h1 className="text-sm py-1 col-span-2">Start Time: {startTime}</h1>

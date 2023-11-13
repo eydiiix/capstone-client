@@ -7,7 +7,7 @@ function Video({
     detection,
     setEmotionData,
     time,
-    setGraphLoaded,
+    setGraphLoaded
 }) {
     const videoRef = useRef();
     const canvasRef = useRef();

@@ -10,7 +10,7 @@ CanvasJS.addColorSet("customColorSet", [
     "green",
 ]);
 
-function MiniEmotionChart({ emotions, hide}) {
+function MiniEmotionChart({ emotions, hide, children}) {
     const options = {
         animationEnabled: true,
         animationDuration: 2000,
@@ -99,7 +99,10 @@ function MiniEmotionChart({ emotions, hide}) {
     };
 
     return (
-        <div className={` ${hide ? "w-0 p-0" : "w-full p-4" } lg:static absolute pt-24 lg:pt-0 top-0 right-0 duration-200 transition-all ease-linear rounded-md overflow-hidden h-full bg-white lg:flex`}>
+        <div className={` ${hide ? "w-0 p-0" : "w-full p-4" } lg:static absolute pt-5 lg:pt-0 top-0 right-0 duration-200 transition-all ease-linear rounded-md overflow-hidden h-full bg-white lg:flex`}>
+            <div className="bg-black lg:hidden rounded-md mb-10 flex w-full h-64">
+                {children}
+            </div>
             <CanvasJSChart options={options} />
         </div>
     );
