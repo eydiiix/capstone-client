@@ -1,8 +1,25 @@
-import { collection, deleteDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { getAge } from "./getAge";
 
 export const userCollection = collection(db, "Users");
+
+export const checkIfUserIsRegistered = async (email) => {
+    try {
+        const userCollectionRef = collection(db, 'Users'); 
+        const q = query(userCollectionRef, where('email', '==', email));
+        const querySnapshot = await getDocs(q);
+        
+        if (!querySnapshot.empty) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error.message);
+        return false;
+    }
+};
 
 export const writeUserData = async (uid, user) => {
     try {
